@@ -1,0 +1,6 @@
+/.idea
+authentication-boot
+/logs
+/target
+/Dockerfile
+/*.jar

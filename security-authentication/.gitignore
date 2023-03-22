@@ -1,0 +1,7 @@
+/.idea
+/security-authentication.iml
+/logs
+/target
+/Dockerfile
+/*.jar
+/src/main/resources/appliaction-dev.properties
