@@ -3,10 +3,12 @@ package com.example.controller;
 import com.example.dto.UserDto;
 import com.example.request.AuthenticationRequest;
 import com.example.service.AuthenticationService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -15,15 +17,22 @@ import javax.validation.Valid;
  * @version 1.0
  * @date 2023/3/22
  **/
+@Slf4j
 @RestController
 public class UserController {
 
-    @Autowired
+    @Resource
     private AuthenticationService authenticationService;
 
     @PostMapping(value = "/login")
     public String toLogin(AuthenticationRequest authenticationRequest, HttpSession session) {
-        UserDto dto = authenticationService.authentication(authenticationRequest);
+        UserDto dto;
+        try {
+            dto = authenticationService.authentication(authenticationRequest);
+        } catch (RuntimeException e) {
+            log.error(e.getMessage());
+            return e.getMessage();
+        }
         session.setAttribute(UserDto.SESSION_USER_KEY, dto);
         return dto.getUsername() + "登录成功";
     }
