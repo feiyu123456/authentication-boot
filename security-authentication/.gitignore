@@ -4,4 +4,6 @@
 /target
 /Dockerfile
 /*.jar
-/src/main/resources/appliaction-dev.properties
+*.properties
+!application.properties
+!application-prod.properties
