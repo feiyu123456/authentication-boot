@@ -16,6 +16,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         //访问上下文+/ 默认访问login.html页面 (这里主要进行=====认证)
-        registry.addViewController("/").setViewName("redirect:/login");
+        registry.addViewController("/").setViewName("redirect:/login-view");
+        registry.addViewController("/login-view").setViewName("login");
+
     }
 }
