@@ -19,7 +19,7 @@ public class UserEntity implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(name = "user_name", nullable = false)
     private String userName;
@@ -33,10 +33,10 @@ public class UserEntity implements Serializable {
     @Column(name = "mobile")
     private String mobile;
 
-    @ManyToMany
-    @JoinTable(name = "tb_role", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {
-            @JoinColumn(name = "id")}, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT), inverseForeignKey =
-    @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private List<RoleEntity> roles;
+//    @ManyToMany
+//    @JoinTable(name = "tb_role", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {
+//            @JoinColumn(name = "id")}, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT), inverseForeignKey =
+//    @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+//    private List<RoleEntity> roles;
 
 }

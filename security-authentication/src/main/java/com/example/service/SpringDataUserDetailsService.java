@@ -7,9 +7,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -28,8 +28,13 @@ public class SpringDataUserDetailsService implements UserDetailsService {
 
         Optional<UserEntity> opt = userRepository.findByUserName(username);
         if (!opt.isPresent()) return null; //如果查不到用户，就返回null,由provider抛出异常
-
-        UserDetails userdetails = User.withUsername(opt.get().getUserName()).password(opt.get().getPassWord()).authorities("p1").build();
+        UserEntity user = opt.get();
+        //查询用户权限
+        List<String> permissions =userRepository.queryPermissionsByUserId(user.getId());
+        String[] permissionArray = new String[permissions.size()];
+        permissions.toArray(permissionArray);
+        //创建userDetails
+        UserDetails userdetails = User.withUsername(user.getUserName()).password(user.getPassWord()).authorities(permissionArray).build();
         return userdetails;
     }
 
